@@ -10,17 +10,55 @@ public class ConvertToRomanNumber {
         String result = "";
         Set<Integer> mapKeys = map.keySet();
 
-        if(number < 4) {
-            for (int i = 0; i < number; i++) {
-                result += "I";
-            }
-        } else {
-            result = "IV";
+        int amountOfDigit = number.toString().length();
+        switch (amountOfDigit){
+            case 1:
+                result = getUnits(number);
+                break;
+            case 2:
+                result = getTens(number);
+                int unit = Integer.parseInt(number.toString().substring(1));
+                result += getUnits(unit);
+                break;
         }
 
-       // int length = String.valueOf(number).length();
+
         return result;
 
+    }
+
+    private String getTens(Integer number) {
+        StringBuilder result = new StringBuilder();
+        if(number == 40) return "XL";
+        if(number == 90) return "XC";
+
+        String firstNumber = number.toString().substring(0, 1);
+        number = Integer.parseInt(firstNumber+"0");
+        if(number > 50){
+            result.append("L");
+            number -= 50;
+        }
+        if(number < 40){
+            firstNumber = number.toString().substring(0, 1);
+            result.append("X".repeat(Math.max(0, Integer.parseInt(firstNumber))));
+        }
+        return result.toString();
+    }
+
+    private static String getUnits(Integer number) {
+        StringBuilder result = new StringBuilder();
+        if(number == 4) return "IV";
+        if(number == 9) return "IX";
+
+        if(number > 5){
+            result.append("V");
+            number -= 5;
+        }
+        if(number < 4) {
+            result.append("I".repeat(Math.max(0, number)));
+        }
+
+        return result.toString();
     }
 
 }
