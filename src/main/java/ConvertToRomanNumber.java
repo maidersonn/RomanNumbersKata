@@ -3,7 +3,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class ConvertToRomanNumber {
-    Map<Integer, String> map = Map.of(1,"I", 5,"V", 10, "X", 50, "L", 100, "C", 500, "D", 1000, "M");
+    static Map<Integer, String> map = Map.of(1,"I", 5,"V", 10, "X", 50, "L", 100, "C", 500, "D", 1000, "M");
 
     public String convert(Integer number) {
         if(map.get(number) != null) return map.get(number);
@@ -28,18 +28,18 @@ public class ConvertToRomanNumber {
     }
     private String getTens(Integer number) {
         StringBuilder result = new StringBuilder();
+        String firstNumber = number.toString().substring(0, 1);
+        number = Integer.parseInt(firstNumber+"0");
         if(number == 40) return "XL";
         if(number == 90) return "XC";
 
-        String firstNumber = number.toString().substring(0, 1);
-        number = Integer.parseInt(firstNumber+"0");
         if(number > 50){
-            result.append("L");
+            result.append(map.get(50));
             number -= 50;
         }
         if(number < 40){
             firstNumber = number.toString().substring(0, 1);
-            result.append("X".repeat(Math.max(0, Integer.parseInt(firstNumber))));
+            result.append(map.get(10).repeat(Math.max(0, Integer.parseInt(firstNumber))));
         }
         return result.toString();
     }
@@ -49,12 +49,12 @@ public class ConvertToRomanNumber {
         if(number == 4) return "IV";
         if(number == 9) return "IX";
 
-        if(number > 5){
-            result.append("V");
+        if(number >= 5){
+            result.append(map.get(5));
             number -= 5;
         }
         if(number < 4) {
-            result.append("I".repeat(Math.max(0, number)));
+            result.append(map.get(1).repeat(Math.max(0, number)));
         }
 
         return result.toString();
