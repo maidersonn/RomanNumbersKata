@@ -145,4 +145,12 @@ public class ConvertToRomanNumberTest{
 
         assertEquals("XCV", romanNumber);
     }
+    @Test
+    public void shouldReturnCI(){
+        ConvertToRomanNumber convertToRomanNumber = new ConvertToRomanNumber();
+        String romanNumber = convertToRomanNumber.convert(101);
+
+        assertEquals("CI", romanNumber);
+    }
+
 }
