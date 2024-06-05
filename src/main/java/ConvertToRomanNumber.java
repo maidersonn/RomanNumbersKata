@@ -26,7 +26,6 @@ public class ConvertToRomanNumber {
         return result;
 
     }
-
     private String getTens(Integer number) {
         StringBuilder result = new StringBuilder();
         if(number == 40) return "XL";
